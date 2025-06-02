@@ -4,8 +4,7 @@ using namespace std;
 class Solution {
 public:
     int snakesAndLadders(vector<vector<int>>& board) {
-        int n = board.size();
-        int MAX = n * n;
+        int n = board.size(), MAX = n * n;
         queue<int> q;
         q.push(1);
         vector<bool> visited(MAX + 1, false);
@@ -15,11 +14,9 @@ public:
         while (!q.empty()) {
             int size = q.size();
             for (int i = 0; i < size; ++i) {
-                int curr = q.front();
-                q.pop();
+                int curr = q.front(); q.pop();
                 
-                if (curr == MAX)
-                    return level;
+                if (curr == MAX) return level;
                 
                 for (int next = curr + 1; next <= min(curr + 6, MAX); ++next) {
                     int dest = next;
