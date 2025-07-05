@@ -41,8 +41,28 @@ public:
 
 class Solution {
 public:
+    bool isSameElement(vector<vector<int>> &grid, int r, int c, int n){
+        int val = grid[r][c];
+        for(int i = r; i < r + n; i++){
+            for(int j = c; j < c + n; j++){
+                if(grid[i][j] != val) return false;
+            }
+        }
+        return true;
+    }
+    Node* f(vector<vector<int>> &grid, int r, int c, int n){
+        if(isSameElement(grid, r, c, n))
+            return new Node(grid[r][c], true);
+
+        Node* root = new Node(1, false);
+        root->topLeft = f(grid, r, c, n/2);
+        root->topRight = f(grid, r, c+n/2, n/2);
+        root->bottomLeft = f(grid, r+n/2, c, n/2);
+        root->bottomRight = f(grid, r+n/2, c+n/2, n/2); 
+        return root;
+    }
     Node* construct(vector<vector<int>>& grid) {
-        
+        return f(grid, 0, 0, grid.size());
     }
 };
 
